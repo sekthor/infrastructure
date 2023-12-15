@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   - ./argocd.yaml
-  - ./toostack.yaml
+  - ./toolstack.yaml
