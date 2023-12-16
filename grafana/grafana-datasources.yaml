@@ -12,5 +12,3 @@ grafana:
         jsonData:
           serviceMap:
             datasourceUid: 'Prometheus'
-          nodeGraph:
-            enabled: true
