@@ -9,3 +9,8 @@ grafana:
       - name: Tempo
         type: tempo
         url: http://tempo:3100
+        jsonData:
+          serviceMap:
+            datasourceUid: 'prometheus'
+          nodeGraph:
+            enabled: true
