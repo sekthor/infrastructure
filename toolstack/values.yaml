@@ -4,3 +4,6 @@ argocd:
 
 grafana:
   enable: true
+
+tempo:
+  enable: true

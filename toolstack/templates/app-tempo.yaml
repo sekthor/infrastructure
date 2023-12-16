@@ -1,0 +1,40 @@
+{{ if .Values.tempo.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tempo
+  namespace: argocd
+spec:
+  project: tools
+  sources:
+    - repoURL: https://github.com/sekthor/infrastructure.git
+      path: tempo
+      targetRevision: HEAD
+      helm:
+        releaseName: tempo
+        {{ if .Values.tempo.valuesFiles }}
+        valueFiles:
+          {{- range $k, $v := .Values.tempo.valuesFiles }}
+          - {{ $v }}
+          {{- end }}
+        {{ end }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+
+  info:
+    - name: 'documentation'
+      value: 'https://grafana.com/docs/tempo/latest/'
+    - name: 'helm values'
+      value: 'https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml'
+    - name: 'source code'
+      value: 'https://github.com/grafana/tempo'
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}
