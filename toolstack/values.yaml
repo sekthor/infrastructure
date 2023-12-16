@@ -1,9 +1,10 @@
 argocd:
   enable: true
-  valuesFiles: []
 
 grafana:
   enable: true
+  valuesFiles:
+    - grafana-datasources.yaml
 
 tempo:
   enable: true

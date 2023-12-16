@@ -1,0 +1,11 @@
+grafana:
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-prometheus-server
+      - name: Tempo
+        type: tempo
+        url: http://tempo:3100
