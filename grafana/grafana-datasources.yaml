@@ -11,6 +11,6 @@ grafana:
         url: http://tempo:3100
         jsonData:
           serviceMap:
-            datasourceUid: 'prometheus'
+            datasourceUid: 'Prometheus'
           nodeGraph:
             enabled: true
