@@ -1,0 +1,40 @@
+{{ if .Values.prometheus.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+  namespace: argocd
+spec:
+  project: tools
+  sources:
+    - repoURL: https://github.com/sekthor/infrastructure.git
+      path: prometheus
+      targetRevision: HEAD
+      helm:
+        releaseName: prometheus
+        {{ if .Values.prometheus.valuesFiles }}
+        valueFiles:
+          {{- range $k, $v := .Values.prometheus.valuesFiles }}
+          - {{ $v }}
+          {{- end }}
+        {{ end }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+
+  info:
+    - name: 'documentation'
+      value: 'https://prometheus.io/docs/introduction/overview/'
+    - name: 'helm values prometheus'
+      value: 'https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus/values.yaml'
+    - name: 'source code'
+      value: 'https://github.com/prometheus/prometheus'
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}
