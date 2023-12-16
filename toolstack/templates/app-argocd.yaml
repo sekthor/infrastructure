@@ -9,7 +9,7 @@ spec:
   sources:
     - repoURL: https://github.com/sekthor/infrastructure.git
       path: argocd
-      targetRevision: 5.51.6
+      targetRevision: HEAD
       helm:
         releaseName: argocd
         {{ if .Values.argocd.valuesFiles }}
