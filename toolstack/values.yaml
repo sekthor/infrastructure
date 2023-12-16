@@ -1,3 +1,6 @@
 argocd:
   enable: true
   valuesFiles: []
+
+grafana:
+  enable: true

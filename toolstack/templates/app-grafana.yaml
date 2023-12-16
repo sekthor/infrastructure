@@ -1,0 +1,40 @@
+{{ if .Values.grafana.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+spec:
+  project: tools
+  sources:
+    - repoURL: https://github.com/sekthor/infrastructure.git
+      path: grafana
+      targetRevision: HEAD
+      helm:
+        releaseName: grafana
+        {{ if .Values.grafana.valuesFiles }}
+        valueFiles:
+          {{- range $k, $v := .Values.grafana.valuesFiles }}
+          - {{ $v }}
+          {{- end }}
+        {{ end }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: grafana
+
+  info:
+    - name: 'documentation'
+      value: 'https://grafana.com/docs/grafana/latest/'
+    - name: 'helm values'
+      value: 'https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml'
+    - name: 'source code'
+      value: 'https://github.com/grafana/grafana'
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}
