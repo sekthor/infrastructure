@@ -7,11 +7,13 @@ spec:
   project: tools
   sources:
     - repoURL: https://github.com/sekthor/infrastructure.git
-      path: toolstack/clusters/lab
-      targetRevision: HEAD
-
+      path: toolstack
+      targetRevision: 5.51.6
+      helm:
+        releaseName: toolstack
   destination:
     server: https://kubernetes.default.svc
+    namespace: argocd
 
   syncPolicy:
     automated:

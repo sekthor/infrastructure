@@ -1,0 +1,15 @@
+argo-cd:
+  global:
+    logging:
+      format: json
+
+  configs:
+    cm:
+      create: true
+      url: ""
+      exec.enabled: true
+    params:
+      otlp.address: ""
+      server.insecure: true
+      server.baseref: /
+      server.rootpath: ""
