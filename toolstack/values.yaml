@@ -1,5 +1,3 @@
 argocd:
   enable: true
-  valuesFiles:
-    - values.yaml
-    - prod.yaml
+  valuesFiles: []
